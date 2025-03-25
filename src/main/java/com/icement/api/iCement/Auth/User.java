@@ -8,9 +8,12 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.icement.api.iCement.Auth.Enums.UserRole;
 import com.icement.api.iCement.Auth.Enums.UserStatus;
 
@@ -24,6 +27,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @Document(collection = "users")
+@JsonInclude(JsonInclude.Include.ALWAYS)
 public class User implements UserDetails {
 
     @Id
@@ -34,10 +38,15 @@ public class User implements UserDetails {
     private UserRole role;
     private UserStatus status;
     @CreatedDate
-    private String createdAt;
+    @Nullable
+    @Field("created_at")
+    private Instant createdAt;
     @LastModifiedDate
+    @Field("updated_at")
     private Instant updatedAt;
+    @Field(name = "last_login_at")
     private Instant lastLoginAt;
+    @Field(name = "deleted_at")
     private Instant deletedAt;
 
     @Override
