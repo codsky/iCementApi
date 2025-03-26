@@ -19,6 +19,7 @@ public class AuthService {
     }
 
     public String register(User user) {
+        checkIfUserExists(user.getEmail());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return "User registered successfully";
@@ -26,8 +27,6 @@ public class AuthService {
 
     public String login(String username, String password) {
         Optional<User> userOptional = userRepository.findByEmail(username);
-        System.out.println(username + " " + password);
-        System.out.println(userOptional.toString());
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             if (passwordEncoder.matches(password, user.getPassword())) {
@@ -35,6 +34,12 @@ public class AuthService {
             }
         }
         throw new RuntimeException("Invalid credentials");
+    }
+
+    private void checkIfUserExists(String email) {
+        if (userRepository.findByEmail(email).isPresent()) {
+            throw new RuntimeException("User already exists");
+        }
     }
 
 }
