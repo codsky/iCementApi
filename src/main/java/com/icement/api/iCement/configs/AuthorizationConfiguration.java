@@ -36,10 +36,10 @@ public class AuthorizationConfiguration {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("api/auth/**")
+                        .requestMatchers("api/auth/**", "/error")
                         .permitAll()
                         .anyRequest()
                         .authenticated())

@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
 @RequestMapping("/api/auth")
 @RestController
 public class AuthController {
@@ -22,7 +24,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String register(@RequestBody User user) {
+    public String register(@Valid @RequestBody User user) {
         return authService.register(user);
     }
 

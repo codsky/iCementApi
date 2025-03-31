@@ -1,9 +1,13 @@
 package com.icement.api.iCement.Auth;
 
 import java.util.Optional;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
+import com.icement.api.iCement.Auth.Enums.UserStatus;
 import com.icement.api.iCement.Utils.JwtUtil;
 
 @Service
@@ -21,6 +25,7 @@ public class AuthService {
     public String register(User user) {
         checkIfUserExists(user.getEmail());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setStatus(UserStatus.ACTIVE);
         userRepository.save(user);
         return "User registered successfully";
     }
@@ -33,12 +38,18 @@ public class AuthService {
                 return jwtUtil.generateToken(username);
             }
         }
-        throw new RuntimeException("Invalid credentials");
+        throw new ResponseStatusException(
+                HttpStatus.UNAUTHORIZED,
+                "Invalid username or password"
+        );
     }
 
     private void checkIfUserExists(String email) {
         if (userRepository.findByEmail(email).isPresent()) {
-            throw new RuntimeException("User already exists");
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    "User with this email already exists"
+            );
         }
     }
 
