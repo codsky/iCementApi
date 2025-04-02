@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.icement.api.iCement.Auth.Dtos.UserCreationDto;
+
 import jakarta.validation.Valid;
 
 @RequestMapping("/api/auth")
@@ -24,8 +26,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String register(@Valid @RequestBody User user) {
-        return authService.register(user);
+    public String register(@Valid @RequestBody UserCreationDto userDto) {
+        return authService.register(userDto.toUser());
     }
 
 }

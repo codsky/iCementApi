@@ -47,7 +47,7 @@ public class AuthService {
     private void checkIfUserExists(String email) {
         if (userRepository.findByEmail(email).isPresent()) {
             throw new ResponseStatusException(
-                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    HttpStatus.BAD_REQUEST,
                     "User with this email already exists"
             );
         }

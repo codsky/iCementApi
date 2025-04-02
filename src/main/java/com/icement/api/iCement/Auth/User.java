@@ -32,6 +32,7 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public class User implements UserDetails {
 
+    @Field("_id")
     @Id
     private String id;
     private String username;
