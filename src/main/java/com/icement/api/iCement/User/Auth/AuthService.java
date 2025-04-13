@@ -1,4 +1,4 @@
-package com.icement.api.iCement.Auth;
+package com.icement.api.iCement.User.Auth;
 
 import java.util.Optional;
 
@@ -7,7 +7,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.icement.api.iCement.Auth.Enums.UserStatus;
+import com.icement.api.iCement.User.User;
+import com.icement.api.iCement.User.UserRepository;
+import com.icement.api.iCement.User.Enums.UserStatus;
 import com.icement.api.iCement.Utils.JwtUtil;
 
 @Service

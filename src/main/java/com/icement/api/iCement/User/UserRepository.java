@@ -1,4 +1,4 @@
-package com.icement.api.iCement.Auth;
+package com.icement.api.iCement.User;
 
 import java.util.Optional;
 

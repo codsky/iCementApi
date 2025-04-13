@@ -1,9 +1,9 @@
-package com.icement.api.iCement.Auth.Dtos;
+package com.icement.api.iCement.User.Auth.Dtos;
 
 
-import com.icement.api.iCement.Auth.User;
-import com.icement.api.iCement.Auth.Enums.UserRole;
-import com.icement.api.iCement.Auth.Enums.UserStatus;
+import com.icement.api.iCement.User.User;
+import com.icement.api.iCement.User.Enums.UserRole;
+import com.icement.api.iCement.User.Enums.UserStatus;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;

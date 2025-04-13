@@ -1,4 +1,4 @@
-package com.icement.api.iCement.Auth;
+package com.icement.api.iCement.User;
 
 import java.time.Instant;
 import java.util.Collection;
@@ -14,8 +14,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.icement.api.iCement.Auth.Enums.UserRole;
-import com.icement.api.iCement.Auth.Enums.UserStatus;
+import com.icement.api.iCement.User.Enums.UserRole;
+import com.icement.api.iCement.User.Enums.UserStatus;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;

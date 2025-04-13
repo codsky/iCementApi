@@ -1,4 +1,4 @@
-package com.icement.api.iCement.Auth.Enums;
+package com.icement.api.iCement.User.Enums;
 
 public enum UserStatus {
     ACTIVE,
