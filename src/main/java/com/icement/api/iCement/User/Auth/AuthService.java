@@ -32,12 +32,12 @@ public class AuthService {
         return "User registered successfully";
     }
 
-    public String login(String username, String password) {
-        Optional<User> userOptional = userRepository.findByEmail(username);
+    public String login(String email, String password) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             if (passwordEncoder.matches(password, user.getPassword())) {
-                return jwtUtil.generateToken(username);
+                return jwtUtil.generateToken(email);
             }
         }
         throw new ResponseStatusException(

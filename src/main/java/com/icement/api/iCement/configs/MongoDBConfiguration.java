@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @Configuration
-@EnableMongoRepositories("com.icement.api.iCement.Auth")
+@EnableMongoRepositories("com.icement.api.iCement")
 @EnableMongoAuditing(dateTimeProviderRef = "dateTimeProvider")
 public class MongoDBConfiguration {
 

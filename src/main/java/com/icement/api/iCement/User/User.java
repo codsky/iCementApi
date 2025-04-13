@@ -9,11 +9,15 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.FieldType;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.icement.api.iCement.User.Enums.UserRole;
 import com.icement.api.iCement.User.Enums.UserStatus;
 
@@ -32,10 +36,10 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public class User implements UserDetails {
 
-    @Field("_id")
-    @Id
+    @MongoId(FieldType.OBJECT_ID)
     private String id;
     private String username;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     @NotNull @Email
     private String email;
@@ -53,6 +57,8 @@ public class User implements UserDetails {
     private Instant lastLoginAt;
     @Field(name = "deleted_at")
     private Instant deletedAt;
+    @Field(name = "deleted_by")
+    private String deletedBy;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
