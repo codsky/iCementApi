@@ -33,7 +33,8 @@ public class UserListFilterDto extends PaginationDto {
 
     public MatchOperation generateAggregationMatchStage() {
         Criteria criteria = new Criteria();
-        criteria.and("deletedAt").is(null);
+        criteria.and("deleted_at").is(null);
+
         if (username != null && !username.isEmpty()) {
             criteria.and("username").regex(username, "i");
         }

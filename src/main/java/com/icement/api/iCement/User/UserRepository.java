@@ -6,11 +6,13 @@ import java.util.Optional;
 
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.UpdateDefinition;
 
 @Repository
 public class UserRepository {
@@ -26,12 +28,18 @@ public class UserRepository {
     }
     
     public Optional<User> findByUsername(String username) {
-        User user = mongoTemplate.findOne(new Query(Criteria.where("username").is(username)), User.class);
+        User user = mongoTemplate.findOne(
+            this.getBaseQuery().addCriteria(Criteria.where("username").is(username)),
+            User.class
+        );
         return Optional.ofNullable(user);
     }
 
     public Optional<User> findByEmail(String email) {
-        User user = mongoTemplate.findOne(new Query(Criteria.where("email").is(email)), User.class);
+        User user = mongoTemplate.findOne(
+            this.getBaseQuery().addCriteria(Criteria.where("email").is(email)),
+             User.class
+            );
         return Optional.ofNullable(user);
     }
 
@@ -56,5 +64,17 @@ public class UserRepository {
         user.setDeletedAt(Instant.now());
         user.setDeletedBy(deletedByUserId);
         return save(user);
+    }
+
+    public void deleteAll() {
+        mongoTemplate.updateMulti(
+            this.getBaseQuery(),
+            new Update().set("deleted_at", Instant.now()),
+            User.class
+        );
+    }
+
+    private Query getBaseQuery() {
+        return new Query(Criteria.where("deleted_at").isNull());
     }
 }
