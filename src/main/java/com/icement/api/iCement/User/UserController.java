@@ -1,5 +1,6 @@
 package com.icement.api.iCement.User;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,8 +30,10 @@ public class UserController {
         return userService.getAllUsers(filter);
     }
 
-    @DeleteMapping("/delete")
-    public void deleteUser(@RequestParam String id, @RequestParam String deletedByUserId) {
-        userService.delete(id, deletedByUserId);
+    @DeleteMapping("/{id}/delete")
+    public String deleteUser(@PathVariable String id, Principal principal) {
+        System.out.println("Authorized user: " + principal.getName());
+        userService.delete(id, principal.getName());
+        return "User deleted successfully";
     }
 }
