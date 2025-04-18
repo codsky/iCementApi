@@ -1,32 +1,39 @@
 package com.icement.api.iCement.Integration.User;
 
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.icement.api.iCement.BaseIntegrationTest;
 import com.icement.api.iCement.User.User;
 import com.icement.api.iCement.User.UserRepository;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import java.util.List;
-
-import org.junit.jupiter.api.Test;
-
-@SpringBootTest
 @AutoConfigureMockMvc
-@ContextConfiguration(classes = {UserTestHelper.class})
 public class AuthControllerTest extends BaseIntegrationTest {
+
+    @Autowired
+    private MockMvc mockMvc;
 
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
     private UserTestHelper userTestHelper;
+
+    @BeforeAll
+    public void init() {
+        userTestHelper = new UserTestHelper(mockMvc);
+    }
+
 
     @BeforeEach
     public void setUp() {
@@ -36,7 +43,7 @@ public class AuthControllerTest extends BaseIntegrationTest {
     @Test
     public void testRegistration() throws Exception {
        this.userTestHelper.registerUser();
-
+        // Verify that the user was created in the database
         List<User> users = userRepository.findUsersByFilter();
         assertEquals(1, users.size());
     }
@@ -44,8 +51,17 @@ public class AuthControllerTest extends BaseIntegrationTest {
     @Test
     public void testLogin() throws Exception {
         this.userTestHelper.registerUser();
-        String Token = this.userTestHelper.loginUserAndReturnToken();
-        assertNotNull(Token);
+
+        String postRequest = """
+            { \"email\": \"test@test.com\", 
+              \"password\": \"password\"
+            }                
+        """;
+
+        this.mockMvc.perform(post("/api/auth/login")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(postRequest))
+            .andExpect(status().isOk());
     }
 
 }

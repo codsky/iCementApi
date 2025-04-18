@@ -1,7 +1,5 @@
 package com.icement.api.iCement.User.Auth;
 
-import static java.lang.System.out;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
