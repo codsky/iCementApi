@@ -1,9 +1,10 @@
 package com.icement.api.iCement.Integration.User;
 
-import org.junit.jupiter.api.Test;
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.HttpHeaders;
@@ -13,11 +14,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.Optional;
-
 import com.icement.api.iCement.BaseIntegrationTest;
-import com.icement.api.iCement.User.User;
-import com.icement.api.iCement.User.UserRepository;
+import com.icement.api.iCement.Domains.User.User;
+import com.icement.api.iCement.Domains.User.UserRepository;
 
 @AutoConfigureMockMvc
 public class UserControllerTest extends BaseIntegrationTest {
@@ -27,7 +26,7 @@ public class UserControllerTest extends BaseIntegrationTest {
     @Autowired
     private UserRepository userRepository;
 
-    private UserTestHelper userTestHelper;
+    private UserAuthTestHelper userAuthTestHelper;
 
     private final HttpHeaders Headers = new HttpHeaders();
 
@@ -35,13 +34,13 @@ public class UserControllerTest extends BaseIntegrationTest {
 
     @BeforeAll
     public void init() {
-        userTestHelper = new UserTestHelper(mockMvc);
+        userAuthTestHelper = new UserAuthTestHelper(mockMvc);
     }
 
     @BeforeEach
     public void setUp() throws Exception {
         deleteAllUsers();
-        setAuthorizationHeader();
+        userAuthTestHelper.setAuthorizationHeader();
     }
 
     private void deleteAllUsers() {
@@ -52,18 +51,11 @@ public class UserControllerTest extends BaseIntegrationTest {
         userRepository.deleteAll();
     }
 
-    private void setAuthorizationHeader() throws Exception {
-        if (Headers.isEmpty()) {
-            userTestHelper.registerUser();
-            Headers.add("Authorization", "Bearer " + userTestHelper.loginUserAndReturnToken());
-        }
-    }
-
     @Test
     public void testGetUserById() throws Exception {
         User user = userRepository.findUsersByFilter().get(0);
 
-        mockMvc.perform(get("/api/users/" + user.getId()).headers(Headers))
+        mockMvc.perform(get("/api/users/" + user.getId()).headers(userAuthTestHelper.getHeaders()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(user.getId()))
                 .andExpect(jsonPath("$.email").value(user.getEmail()));
@@ -71,20 +63,20 @@ public class UserControllerTest extends BaseIntegrationTest {
 
     @Test
     public void testGetAllUsers() throws Exception {
-        userTestHelper.registerUser("test2@test.com");
+        userAuthTestHelper.registerUser("test2@test.com");
 
-        mockMvc.perform(get("/api/users").headers(Headers))
+        mockMvc.perform(get("/api/users").headers(userAuthTestHelper.getHeaders()))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void testDeleteUserById() throws Exception {
         String email = "test3@test.com";
-        userTestHelper.registerUser(email);
+        userAuthTestHelper.registerUser(email);
         Optional<User> user = userRepository.findByEmail(email);
         assert user.isPresent();
 
-        mockMvc.perform(delete("/api/users/" + user.get().getId()).headers(Headers))
+        mockMvc.perform(delete("/api/users/" + user.get().getId()).headers(userAuthTestHelper.getHeaders()))
                 .andExpect(status().isOk());
     }
 }

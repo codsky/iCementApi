@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.icement.api.iCement.User.UserRepository;
+import com.icement.api.iCement.Domains.User.UserRepository;
 
 @Configuration
 public class ApplicationConfiguration {

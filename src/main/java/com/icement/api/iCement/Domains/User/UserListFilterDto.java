@@ -1,4 +1,4 @@
-package com.icement.api.iCement.User;
+package com.icement.api.iCement.Domains.User;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
@@ -7,9 +7,9 @@ import org.springframework.data.mongodb.core.aggregation.SkipOperation;
 import org.springframework.data.mongodb.core.aggregation.SortOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 
-import com.icement.api.iCement.Shared.Dtos.PaginationDto;
-import com.icement.api.iCement.User.Enums.UserRole;
-import com.icement.api.iCement.User.Enums.UserStatus;
+import com.icement.api.iCement.Domains.Shared.Dtos.PaginationDto;
+import com.icement.api.iCement.Domains.User.Enums.UserRole;
+import com.icement.api.iCement.Domains.User.Enums.UserStatus;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

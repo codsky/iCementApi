@@ -1,4 +1,4 @@
-package com.icement.api.iCement.User.Auth.Dtos;
+package com.icement.api.iCement.Domains.User.Auth.Dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

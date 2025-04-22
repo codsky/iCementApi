@@ -1,12 +1,12 @@
-package com.icement.api.iCement.User.Auth;
+package com.icement.api.iCement.Domains.User.Auth;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.icement.api.iCement.User.Auth.Dtos.UserCreationDto;
-import com.icement.api.iCement.User.Auth.Dtos.UserLoginDto;
+import com.icement.api.iCement.Domains.User.Auth.Dtos.UserCreationDto;
+import com.icement.api.iCement.Domains.User.Auth.Dtos.UserLoginDto;
 
 import jakarta.validation.Valid;
 

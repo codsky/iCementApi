@@ -1,4 +1,4 @@
-package com.icement.api.iCement.User;
+package com.icement.api.iCement.Domains.User;
 
 import java.security.Principal;
 import java.util.List;

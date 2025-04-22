@@ -1,15 +1,18 @@
 package com.icement.api.iCement.Integration.User;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class UserTestHelper {
+public class UserAuthTestHelper {
     private MockMvc mockMvc;
 
-    UserTestHelper(MockMvc mockMvc) {
+    private final HttpHeaders headers = new HttpHeaders();
+
+    public UserAuthTestHelper(MockMvc mockMvc) {
         this.mockMvc = mockMvc;
     }
 
@@ -32,6 +35,13 @@ public class UserTestHelper {
                 .andExpect(status().isOk());
     }
 
+    public void setAuthorizationHeader() throws Exception {
+        if (headers.isEmpty()) {
+            registerUser();
+            headers.add("Authorization", "Bearer " + loginUserAndReturnToken());
+        }
+    }
+
     public String loginUserAndReturnToken() throws Exception {
         String postRequest = """
             { \"email\": \"test@test.com\", 
@@ -45,5 +55,13 @@ public class UserTestHelper {
             .andExpect(status().isOk());
 
         return response.andReturn().getResponse().getContentAsString();
+    }
+
+    public HttpHeaders getHeaders() {
+        return headers;
+    }
+    
+    public void clearAuthorizationHeader() {
+        headers.clear();
     }
 }

@@ -1,4 +1,4 @@
-package com.icement.api.iCement.Shared.Dtos;
+package com.icement.api.iCement.Domains.Shared.Dtos;
 
 import lombok.Data;
 

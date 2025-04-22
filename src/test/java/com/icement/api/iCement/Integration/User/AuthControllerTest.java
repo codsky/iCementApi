@@ -3,7 +3,6 @@ package com.icement.api.iCement.Integration.User;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,8 +14,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.icement.api.iCement.BaseIntegrationTest;
-import com.icement.api.iCement.User.User;
-import com.icement.api.iCement.User.UserRepository;
+import com.icement.api.iCement.Domains.User.User;
+import com.icement.api.iCement.Domains.User.UserRepository;
 
 @AutoConfigureMockMvc
 public class AuthControllerTest extends BaseIntegrationTest {
@@ -27,11 +26,11 @@ public class AuthControllerTest extends BaseIntegrationTest {
     @Autowired
     private UserRepository userRepository;
 
-    private UserTestHelper userTestHelper;
+    private UserAuthTestHelper userTestHelper;
 
     @BeforeAll
     public void init() {
-        userTestHelper = new UserTestHelper(mockMvc);
+        userTestHelper = new UserAuthTestHelper(mockMvc);
     }
 
 
