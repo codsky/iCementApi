@@ -11,9 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OrderItem {
 
-    private Long productId;
-    private String name;
-    private String description;
+    private String productId;
     private Double price;
     private Integer quantity;
     private Double totalPrice;

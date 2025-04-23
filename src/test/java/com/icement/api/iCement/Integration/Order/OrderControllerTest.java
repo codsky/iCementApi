@@ -1,5 +1,6 @@
 package com.icement.api.iCement.Integration.Order;
 
+import org.junit.Test;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,28 +17,27 @@ public class OrderControllerTest extends BaseIntegrationTest {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private OrderTestHelper orderTestHelper;
+
     private UserAuthTestHelper userAuthTestHelper;
-    
-    private boolean isOrderCollectionCleared = false;
     
     @BeforeAll
     public void init() {
-        // orderTestHelper = new OrderTestHelper(mockMvc);
+        orderTestHelper = new OrderTestHelper(mockMvc);
         userAuthTestHelper = new UserAuthTestHelper(mockMvc);
     }
     
     @BeforeEach
     public void setUp() throws Exception {
-        deleteAllOrders();
+        orderTestHelper.deleteAllOrders();
         userAuthTestHelper.setAuthorizationHeader();
     }
-    
-    private void deleteAllOrders() {
-        if (isOrderCollectionCleared) {
-            return;
-        }
-        isOrderCollectionCleared = true;
-        orderRepository.deleteAll();
+
+    @Test
+    public void testCreateOrder() throws Exception {
+        orderTestHelper.createOrder();
     }
+
 
 }

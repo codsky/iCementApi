@@ -11,7 +11,6 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
-
 import com.icement.api.iCement.Domains.Shared.Entities.BaseEntity;
 
 public class BaseRepository <T extends BaseEntity> {
@@ -24,8 +23,8 @@ public class BaseRepository <T extends BaseEntity> {
         this.entityType = entityType;
     }
 
-    public T save(T user) {
-        return mongoTemplate.save(user);
+    public T save(T entity) {
+        return mongoTemplate.save(entity);
     }
 
     public Optional<T> findById(String id) {
