@@ -1,5 +1,7 @@
 package com.icement.api.iCement.Domains.Order;
 
+import org.springframework.data.mongodb.core.mapping.Field;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,9 +13,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OrderItem {
 
+    @Field("product_id")
     private String productId;
+
+    @Field("price")
     private Double price;
+
+    @Field("quantity")
     private Integer quantity;
+    
+    @Field("total_price")
     private Double totalPrice;
 
     public Double calculateTotalPrice() {

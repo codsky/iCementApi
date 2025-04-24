@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import com.icement.api.iCement.Domains.Order.Order;
 import com.icement.api.iCement.Domains.Order.OrderItem;
+import com.icement.api.iCement.Domains.Shared.Entities.Address;
 
 @Data
 @Builder
@@ -26,6 +27,7 @@ public class OrderDto {
     private Double totalTax;
     private Double totalShipping;
     private ArrayList<OrderItemDto> items;
+    private Address shippingAddress;
 
     public Double calculateTotalGrossPrice() {
         return this.totalDiscount + this.totalTax + this.totalShipping;
@@ -45,6 +47,7 @@ public class OrderDto {
                 .totalDiscount(this.totalDiscount)
                 .totalTax(this.totalTax)
                 .totalShipping(this.totalShipping)
+                .shippingAddress(this.shippingAddress)
                 .items(convertDtoToOrderItems())
                 .totalGrossPrice(calculateTotalGrossPrice())
                 .totalNetPrice(calculateTotalNetPrice())

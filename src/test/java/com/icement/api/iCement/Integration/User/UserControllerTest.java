@@ -55,7 +55,7 @@ public class UserControllerTest extends BaseIntegrationTest {
     public void testGetUserById() throws Exception {
         User user = userRepository.findUsersByFilter().get(0);
 
-        mockMvc.perform(get("/api/users/" + user.getId()).headers(userAuthTestHelper.getHeaders()))
+        mockMvc.perform(get("/api/users/" + user.getId()).headers(userAuthTestHelper.getAuthorizationHeaders()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(user.getId()))
                 .andExpect(jsonPath("$.email").value(user.getEmail()));
@@ -65,7 +65,7 @@ public class UserControllerTest extends BaseIntegrationTest {
     public void testGetAllUsers() throws Exception {
         userAuthTestHelper.registerUser("test2@test.com");
 
-        mockMvc.perform(get("/api/users").headers(userAuthTestHelper.getHeaders()))
+        mockMvc.perform(get("/api/users").headers(userAuthTestHelper.getAuthorizationHeaders()))
                 .andExpect(status().isOk());
     }
 
@@ -76,7 +76,7 @@ public class UserControllerTest extends BaseIntegrationTest {
         Optional<User> user = userRepository.findByEmail(email);
         assert user.isPresent();
 
-        mockMvc.perform(delete("/api/users/" + user.get().getId()).headers(userAuthTestHelper.getHeaders()))
+        mockMvc.perform(delete("/api/users/" + user.get().getId()).headers(userAuthTestHelper.getAuthorizationHeaders()))
                 .andExpect(status().isOk());
     }
 }

@@ -57,7 +57,7 @@ public class UserAuthTestHelper {
         return response.andReturn().getResponse().getContentAsString();
     }
 
-    public HttpHeaders getHeaders() {
+    public HttpHeaders getAuthorizationHeaders() {
         return headers;
     }
     

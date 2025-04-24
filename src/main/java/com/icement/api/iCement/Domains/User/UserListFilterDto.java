@@ -1,10 +1,7 @@
 package com.icement.api.iCement.Domains.User;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.MatchOperation;
-import org.springframework.data.mongodb.core.aggregation.SkipOperation;
-import org.springframework.data.mongodb.core.aggregation.SortOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
 
 import com.icement.api.iCement.Domains.Shared.Dtos.PaginationDto;
@@ -49,16 +46,5 @@ public class UserListFilterDto extends PaginationDto {
         }
 
         return Aggregation.match(criteria);
-    }
-
-    public SortOperation generateAggregationSortStage() {
-        return Aggregation.sort(Sort.by(
-            Sort.Direction.fromString(sortOrder.toUpperCase()),
-            sortBy
-        ));
-    }
-
-    public SkipOperation generateAggregationSkipStage() {
-        return Aggregation.skip(pageNumber * pageSize);
     }
 }

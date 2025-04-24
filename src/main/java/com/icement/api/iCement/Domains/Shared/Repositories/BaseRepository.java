@@ -53,7 +53,7 @@ public class BaseRepository <T extends BaseEntity> {
         return new Query(Criteria.where("deleted_at").isNull());
     }
 
-    public Optional<T> findByColumnName(String columnName, String value) {
+    protected Optional<T> findByColumnName(String columnName, String value) {
         return Optional.ofNullable(
             mongoTemplate.findOne(
                 this.getBaseQuery().addCriteria(Criteria.where(columnName).is(value)),
