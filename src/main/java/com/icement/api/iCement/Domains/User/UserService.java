@@ -22,7 +22,14 @@ public class UserService {
     }
 
     List<User> getAllUsers(UserListFilterDto filter) {
-        return userRepository.findUsersByFilter(filter);
+        return userRepository.findUsersByFilter(setFilterIfNoneIsGiven(filter));
+    }
+
+    private UserListFilterDto setFilterIfNoneIsGiven(UserListFilterDto filter) {
+        if (filter == null) {
+            filter = new UserListFilterDto();
+        }
+        return filter;
     }
 
     void delete(String id, String deletedByUserId) throws UserNotFoundException {

@@ -10,7 +10,9 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 public class OrderItemDto {
-    private String productId;
+    private String productNumber;
+    private String productName;
+    private String productVersion;
     private Double price;
     private Integer quantity;
 
@@ -20,7 +22,9 @@ public class OrderItemDto {
 
     public OrderItem toOrderItem() {
         return OrderItem.builder()
-                .productId(this.productId)
+                .productNumber(this.productNumber)
+                .productName(this.productName)
+                .productVersion(this.productVersion)
                 .price(this.price)
                 .quantity(this.quantity)
                 .totalPrice(this.calculateTotalPrice())

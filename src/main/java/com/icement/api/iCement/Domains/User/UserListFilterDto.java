@@ -28,6 +28,7 @@ public class UserListFilterDto extends PaginationDto {
         super();
     }
 
+    @Override
     public MatchOperation generateAggregationMatchStage() {
         Criteria criteria = new Criteria();
         criteria.and("deleted_at").is(null);

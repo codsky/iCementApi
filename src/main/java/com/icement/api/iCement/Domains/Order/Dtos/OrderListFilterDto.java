@@ -31,6 +31,7 @@ public class OrderListFilterDto extends PaginationDto {
         super();
     }
 
+    @Override
     public MatchOperation generateAggregationMatchStage() {
         var criteria = new Criteria();
         criteria.and("deleted_at").is(null);

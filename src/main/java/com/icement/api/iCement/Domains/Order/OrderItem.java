@@ -13,8 +13,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OrderItem {
 
-    @Field("product_id")
-    private String productId;
+    @Field("product_name")
+    private String productName;
+
+    @Field("product_number")
+    private String productNumber;
+
+    @Field("product_version")
+    private String productVersion;
 
     @Field("price")
     private Double price;

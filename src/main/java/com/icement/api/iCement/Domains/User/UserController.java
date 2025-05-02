@@ -28,15 +28,7 @@ public class UserController {
 
     @GetMapping
     public List<User> getAllUsers(@ModelAttribute UserListFilterDto filter) {
-        filter = setFilterIfNoneIsGiven(filter);
         return userService.getAllUsers(filter);
-    }
-
-    private UserListFilterDto setFilterIfNoneIsGiven(UserListFilterDto filter) {
-        if (filter == null) {
-            filter = new UserListFilterDto();
-        }
-        return filter;
     }
 
     @DeleteMapping("/{id}")
