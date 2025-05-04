@@ -20,7 +20,7 @@ public class OrderItem {
     private String productNumber;
 
     @Field("product_version")
-    private String productVersion;
+    private Integer productVersion;
 
     @Field("price")
     private Double price;

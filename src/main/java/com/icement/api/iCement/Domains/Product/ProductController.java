@@ -17,6 +17,11 @@ public class ProductController {
         this.productService = productService;
     }
 
+    @GetMapping()
+    public Iterable<Product> getAll() {
+        return productService.getAllProducts();
+    }
+
     @PostMapping("/create")
     public Product create(Product product) {
         return productService.createProduct(product);

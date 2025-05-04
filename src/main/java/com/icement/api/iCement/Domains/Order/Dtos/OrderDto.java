@@ -13,6 +13,9 @@ import com.icement.api.iCement.Domains.Order.Order;
 import com.icement.api.iCement.Domains.Order.OrderItem;
 import com.icement.api.iCement.Domains.Shared.Entities.Address;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -21,16 +24,23 @@ import com.icement.api.iCement.Domains.Shared.Entities.Address;
 public class OrderDto {
 
     private Long orderNumber;
+    @NotBlank(message = "Customer ID is required")
     private String customerId;
     private OrderStatus status;
     private Double totalDiscount;
     private Double totalTax;
     private Double totalShipping;
+    @Size(min = 1, message = "At least one order item is required")
     private ArrayList<OrderItemDto> items;
+    @jakarta.validation.constraints.NotNull(message = "Shipping address is required")
     private Address shippingAddress;
 
     public Double calculateTotalGrossPrice() {
-        return this.totalDiscount + this.totalTax + this.totalShipping;
+        return this.totalDiscount + this.calculateTax() + this.totalShipping;
+    }
+
+    public Double calculateTax() {
+        return this.calculateTotalNetPrice() * 0.1;
     }
 
     public Double calculateTotalNetPrice() {
@@ -51,6 +61,7 @@ public class OrderDto {
                 .items(convertDtoToOrderItems())
                 .totalGrossPrice(calculateTotalGrossPrice())
                 .totalNetPrice(calculateTotalNetPrice())
+                .totalTax(calculateTax())
                 .build();
     }
 
@@ -61,5 +72,6 @@ public class OrderDto {
             .toList()
         );
     }
+    
 
 }

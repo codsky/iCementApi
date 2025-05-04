@@ -42,6 +42,10 @@ public class ProductService {
             .orElseThrow(() -> new NotFoundException("Product with product number " + productNumber + " and version " + version + " not found"));
     }
 
+    public Iterable<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
+
 
 
 }

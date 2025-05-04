@@ -2,6 +2,9 @@ package com.icement.api.iCement.Domains.Order.Dtos;
 
 import com.icement.api.iCement.Domains.Order.OrderItem;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,10 +13,18 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 public class OrderItemDto {
+    @NotBlank(message = "Product number is required")
     private String productNumber;
+    @NotBlank(message = "Product name is required")
     private String productName;
-    private String productVersion;
+    @NotBlank(message = "Product version is required")
+    @Positive(message = "Product version must be a positive number")
+    private Integer productVersion;
+    @NotEmpty(message = "Order Item Price is required")
+    @Positive(message = "Order Item Price must be a positive number")
     private Double price;
+    @NotEmpty(message = "Order Item Quantity is required")
+    @Positive(message = "Order Item Quantity must be a positive number")
     private Integer quantity;
 
     public Double calculateTotalPrice() {
