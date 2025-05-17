@@ -2,11 +2,14 @@ package com.icement.api.iCement.Domains.Order;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.icement.api.iCement.Domains.Order.Dtos.OrderListFilterDto;
 import com.icement.api.iCement.Domains.Product.Product;
 import com.icement.api.iCement.Domains.Product.ProductRepository;
 import com.icement.api.iCement.Exceptions.NotFoundException;
 
+@Service
 public class OrderService {
 
     private final OrderRepository orderRepository;

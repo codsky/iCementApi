@@ -1,5 +1,6 @@
 package com.icement.api.iCement.ApiHealthCheck.Controllers;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +16,7 @@ public class ApiHealthCheckController {
         this.apiHealthCheckService = apiHealthCheckService;
     }
 
-    @RequestMapping("/mongo")
+    @GetMapping("/mongo")
     public String isMongoUp() {
         return apiHealthCheckService.checkMongoDBConnectionStatus();
     }

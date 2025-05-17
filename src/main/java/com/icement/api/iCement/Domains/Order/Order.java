@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.FieldType;
-import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.icement.api.iCement.Domains.Shared.Entities.Address;
@@ -29,8 +28,7 @@ public class Order extends BaseEntity {
     @Field(name = "order_number")
     private Long orderNumber;
 
-    @MongoId(FieldType.OBJECT_ID)
-    @Field(name = "customer_id")
+    @Field(name = "customer_id", targetType = FieldType.OBJECT_ID)
     private String customerId;
 
     private OrderStatus status;

@@ -2,12 +2,10 @@ package com.icement.api.iCement.Integration.User;
 
 import java.util.Optional;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -25,17 +23,9 @@ public class UserControllerTest extends BaseIntegrationTest {
 
     @Autowired
     private UserRepository userRepository;
-
+    @Autowired
     private UserAuthTestHelper userAuthTestHelper;
-
-    private final HttpHeaders Headers = new HttpHeaders();
-
     private boolean isUserCollectionCleared = false;
-
-    @BeforeAll
-    public void init() {
-        userAuthTestHelper = new UserAuthTestHelper(mockMvc);
-    }
 
     @BeforeEach
     public void setUp() throws Exception {

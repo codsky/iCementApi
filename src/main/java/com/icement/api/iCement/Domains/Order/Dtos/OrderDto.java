@@ -1,20 +1,19 @@
 package com.icement.api.iCement.Domains.Order.Dtos;
 
+import java.util.ArrayList;
+
+import com.icement.api.iCement.Domains.Order.Order;
+import com.icement.api.iCement.Domains.Order.OrderItem;
+import com.icement.api.iCement.Domains.Order.OrderStatus;
+import com.icement.api.iCement.Domains.Shared.Entities.Address;
+
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-import com.icement.api.iCement.Domains.Order.OrderStatus;
-import java.util.ArrayList;
-
-import com.icement.api.iCement.Domains.Order.Order;
-import com.icement.api.iCement.Domains.Order.OrderItem;
-import com.icement.api.iCement.Domains.Shared.Entities.Address;
-
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 
 @Data
 @Builder
@@ -24,7 +23,7 @@ import jakarta.validation.constraints.Size;
 public class OrderDto {
 
     private Long orderNumber;
-    @NotBlank(message = "Customer ID is required")
+    @NotEmpty(message = "Customer ID is required")
     private String customerId;
     private OrderStatus status;
     private Double totalDiscount;
@@ -32,7 +31,7 @@ public class OrderDto {
     private Double totalShipping;
     @Size(min = 1, message = "At least one order item is required")
     private ArrayList<OrderItemDto> items;
-    @jakarta.validation.constraints.NotNull(message = "Shipping address is required")
+    @NotEmpty(message = "Shipping address is required")
     private Address shippingAddress;
 
     public Double calculateTotalGrossPrice() {

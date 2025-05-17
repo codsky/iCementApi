@@ -1,11 +1,10 @@
 package com.icement.api.iCement.Domains.User;
 
-import java.time.Instant;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.icement.api.iCement.Exceptions.UserNotFoundException;
+import com.icement.api.iCement.Exceptions.NotFoundException;
 
 @Service
 public class UserService {
@@ -16,9 +15,9 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    User getUserById(String id) throws UserNotFoundException {
+    User getUserById(String id) throws NotFoundException {
         return userRepository.findById(id)
-        .orElseThrow(() -> new UserNotFoundException("User with id " + id + " not found"));
+        .orElseThrow(() -> new NotFoundException("User with id " + id + " not found"));
     }
 
     List<User> getAllUsers(UserListFilterDto filter) {
@@ -32,7 +31,7 @@ public class UserService {
         return filter;
     }
 
-    void delete(String id, String deletedByUserId) throws UserNotFoundException {
+    void delete(String id, String deletedByUserId) throws NotFoundException {
         User user = this.getUserById(id);
         userRepository.delete(user, deletedByUserId);
     }

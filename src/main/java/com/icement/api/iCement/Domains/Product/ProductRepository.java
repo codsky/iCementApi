@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.stereotype.Repository;
 
 import com.icement.api.iCement.Domains.Shared.Repositories.BaseRepository;
 
+@Repository
 public class ProductRepository extends BaseRepository<Product> {
     ProductRepository() {
         super(Product.class, "products");

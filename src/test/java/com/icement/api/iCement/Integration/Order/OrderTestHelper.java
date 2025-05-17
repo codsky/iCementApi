@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.stereotype.Component;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -12,15 +13,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icement.api.iCement.Domains.Order.Dtos.OrderDto;
 import com.icement.api.iCement.Domains.Order.Dtos.OrderItemDto;
-import com.icement.api.iCement.Domains.Order.Order;
 import com.icement.api.iCement.Domains.Order.OrderRepository;
 import com.icement.api.iCement.Domains.Shared.Entities.Address;
 import com.icement.api.iCement.Integration.User.UserAuthTestHelper;
 
+@Component
 public class OrderTestHelper {
 
-    private final MockMvc mockMvc;
-    private boolean isOrderCollectionCleared = false;
+    @Autowired
+    private MockMvc mockMvc;
 
     @Autowired
     private OrderRepository orderRepository;
@@ -28,12 +29,11 @@ public class OrderTestHelper {
     @Autowired
     private ObjectMapper objectMapper;
 
-    private final UserAuthTestHelper userAuthTestHelper;
+    @Autowired
+    private UserAuthTestHelper userAuthTestHelper;
 
-    public OrderTestHelper(MockMvc mockMvc) {
-        this.mockMvc = mockMvc;
-        this.userAuthTestHelper = new UserAuthTestHelper(mockMvc);
-    }
+    private boolean isOrderCollectionCleared = false;
+
 
     public void deleteAllOrders() {
         if (isOrderCollectionCleared) {
@@ -45,11 +45,11 @@ public class OrderTestHelper {
 
     public MockHttpServletResponse createOrder() throws Exception {
     
-        return this.mockMvc.perform(post("/api/orders")
+        return this.mockMvc.perform(post("/api/orders/create")
                 .headers(userAuthTestHelper.getAuthorizationHeaders())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(createOrderRequest()))
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andReturn().getResponse();
     }
 
@@ -66,7 +66,9 @@ public class OrderTestHelper {
     private ArrayList<OrderItemDto> createOrderItems() {
         ArrayList<OrderItemDto> items = new ArrayList<>();
         OrderItemDto item = OrderItemDto.builder()
-                .productId("productId")
+                .productNumber("productId")
+                .productName("Cement")
+                .productVersion(1)
                 .quantity(2)
                 .price(50.0)
                 .build();

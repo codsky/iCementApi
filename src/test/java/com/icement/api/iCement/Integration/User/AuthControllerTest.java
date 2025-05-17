@@ -3,7 +3,6 @@ package com.icement.api.iCement.Integration.User;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +25,8 @@ public class AuthControllerTest extends BaseIntegrationTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
     private UserAuthTestHelper userTestHelper;
-
-    @BeforeAll
-    public void init() {
-        userTestHelper = new UserAuthTestHelper(mockMvc);
-    }
 
 
     @BeforeEach

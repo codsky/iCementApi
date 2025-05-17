@@ -1,7 +1,10 @@
 package com.icement.api.iCement.Domains.Product;
 
+import org.springframework.stereotype.Service;
+
 import com.icement.api.iCement.Exceptions.NotFoundException;
 
+@Service
 public class ProductService {
 
     private final ProductRepository productRepository;
