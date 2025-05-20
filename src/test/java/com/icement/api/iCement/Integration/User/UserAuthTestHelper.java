@@ -1,22 +1,19 @@
 package com.icement.api.iCement.Integration.User;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Component
 public class UserAuthTestHelper {
-    @Autowired
-    private MockMvc mockMvc;
+    private final MockMvc mockMvc;
 
     private final HttpHeaders headers = new HttpHeaders();
 
-    public UserAuthTestHelper() {
+    public UserAuthTestHelper(MockMvc mockMvc) {
+        this.mockMvc = mockMvc;
     }
 
     public void registerUser() throws Exception {

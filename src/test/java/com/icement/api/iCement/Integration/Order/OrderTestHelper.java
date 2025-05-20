@@ -2,10 +2,8 @@ package com.icement.api.iCement.Integration.Order;
 
 import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.stereotype.Component;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -17,23 +15,26 @@ import com.icement.api.iCement.Domains.Order.OrderRepository;
 import com.icement.api.iCement.Domains.Shared.Entities.Address;
 import com.icement.api.iCement.Integration.User.UserAuthTestHelper;
 
-@Component
 public class OrderTestHelper {
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
-    private OrderRepository orderRepository;
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    @Autowired
-    private UserAuthTestHelper userAuthTestHelper;
+    private final MockMvc mockMvc;
+    private final OrderRepository orderRepository;
+    private final ObjectMapper objectMapper;
+    private final UserAuthTestHelper userAuthTestHelper;
 
     private boolean isOrderCollectionCleared = false;
 
+    public OrderTestHelper(
+        MockMvc mockMvc,
+        OrderRepository orderRepository,
+        ObjectMapper objectMapper,
+        UserAuthTestHelper userAuthTestHelper
+    ) {
+        this.mockMvc = mockMvc;
+        this.orderRepository = orderRepository;
+        this.objectMapper = objectMapper;
+        this.userAuthTestHelper = userAuthTestHelper;
+    }
 
     public void deleteAllOrders() {
         if (isOrderCollectionCleared) {
