@@ -30,7 +30,7 @@ public class AuthControllerTest extends BaseIntegrationTest {
 
     @BeforeAll
     public void init() {
-        userTestHelper = new UserAuthTestHelper(mockMvc);
+        userTestHelper = new UserAuthTestHelper(mockMvc, userRepository);
     }
 
     @BeforeEach

@@ -4,15 +4,21 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+
+import com.icement.api.iCement.Domains.User.UserRepository;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class UserAuthTestHelper {
     private final MockMvc mockMvc;
+    private final UserRepository userRepository;
+    private final String defaultUserEmail = "test@test.com";
 
     private final HttpHeaders headers = new HttpHeaders();
 
-    public UserAuthTestHelper(MockMvc mockMvc) {
+    public UserAuthTestHelper(MockMvc mockMvc, UserRepository userRepository) {
+        this.userRepository = userRepository;
         this.mockMvc = mockMvc;
     }
 
@@ -37,17 +43,24 @@ public class UserAuthTestHelper {
 
     public void setAuthorizationHeader() throws Exception {
         if (headers.isEmpty()) {
-            registerUser();
+
+            if (!defaultUserExists()) {
+                registerUser();
+            }
             headers.add("Authorization", "Bearer " + loginUserAndReturnToken());
         }
     }
 
+    private boolean defaultUserExists() {
+        return userRepository.findByEmail(defaultUserEmail).isPresent();
+    }
+
     public String loginUserAndReturnToken() throws Exception {
         String postRequest = """
-            { \"email\": \"test@test.com\", 
+            { \"email\": \"%s\", 
               \"password\": \"password\"
             }                
-        """;
+        """.formatted(defaultUserEmail);
 
         ResultActions response = this.mockMvc.perform(post("/api/auth/login")
             .contentType(MediaType.APPLICATION_JSON)
