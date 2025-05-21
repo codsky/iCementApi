@@ -23,6 +23,7 @@ public abstract class BaseIntegrationTest {
             .withReuse(true)
             .waitingFor(Wait.forListeningPort());
         mongoDBContainer.start();
+        System.out.println("spring.data.mongodb.uri" + mongoDBContainer.getReplicaSetUrl());
     }
 
 

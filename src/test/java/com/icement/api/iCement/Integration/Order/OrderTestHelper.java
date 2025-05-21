@@ -3,13 +3,10 @@ package com.icement.api.iCement.Integration.Order;
 import java.util.ArrayList;
 
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultHandler;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -55,6 +52,7 @@ public class OrderTestHelper {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(createOrderRequest()))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.orderNumber").value(123456L))
                 .andDo(print());
     }
 

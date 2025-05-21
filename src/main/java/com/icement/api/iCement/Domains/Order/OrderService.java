@@ -21,7 +21,7 @@ public class OrderService {
     }
 
     public Order createOrder(Order order) {
-        this.validateOrderItemsProducts(order);
+        validateOrderItemsProducts(order);
         return orderRepository.save(order);
     }
 
