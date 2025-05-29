@@ -26,9 +26,9 @@ import lombok.NoArgsConstructor;
 public class Order extends BaseEntity {
 
     @Field(name = "order_number")
-    private Long orderNumber;
+    private String orderNumber;
 
-    @Field(name = "customer_id", targetType = FieldType.OBJECT_ID)
+    @Field(name = "customer_id")
     private String customerId;
 
     private OrderStatus status;
@@ -39,17 +39,15 @@ public class Order extends BaseEntity {
     @Field(name = "total_gross_price")
     private Double totalGrossPrice;
 
-    @Field(name = "total_discount")
-    private Double totalDiscount;
+    @Field(name = "discount")
+    private Double discount;
 
-    @Field(name = "total_tax")
-    private Double totalTax;
+    @Field(name = "tax_amount")
+    private Double taxAmount;
 
-    @Field(name = "total_shipping")
-    private Double totalShipping;
+    @Field(name = "shipping_price")
+    private Double shippingPrice;
 
-    @Field(name = "total_amount")
-    private Double totalAmount;
     private ArrayList<OrderItem> items;
 
     @Field(name = "shipping_address")

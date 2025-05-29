@@ -2,7 +2,7 @@ package com.icement.api.iCement.Exceptions;
 
 public class NotFoundException extends RuntimeException {
     public NotFoundException() {
-        super("User not found");
+        super("Item not found");
     }
     
     public NotFoundException(String message) {

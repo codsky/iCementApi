@@ -3,7 +3,7 @@ package com.icement.api.iCement.Domains.Order.Dtos;
 import com.icement.api.iCement.Domains.Order.OrderItem;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,19 +17,15 @@ public class OrderItemDto {
     private String productNumber;
     @NotBlank(message = "Product name is required")
     private String productName;
-    @NotBlank(message = "Product version is required")
+    @NotNull(message = "Product version is required")
     @Positive(message = "Product version must be a positive number")
     private Integer productVersion;
-    @NotEmpty(message = "Order Item Price is required")
+    @NotNull(message = "Order Item Price is required")
     @Positive(message = "Order Item Price must be a positive number")
     private Double price;
-    @NotEmpty(message = "Order Item Quantity is required")
+    @NotNull(message = "Order Item Quantity is required")
     @Positive(message = "Order Item Quantity must be a positive number")
     private Integer quantity;
-
-    public Double calculateTotalPrice() {
-        return this.price * this.quantity;
-    }
 
     public OrderItem toOrderItem() {
         return OrderItem.builder()
@@ -40,5 +36,9 @@ public class OrderItemDto {
                 .quantity(this.quantity)
                 .totalPrice(this.calculateTotalPrice())
                 .build();
+    }
+
+    public Double calculateTotalPrice() {
+        return this.price * this.quantity;
     }
 }
