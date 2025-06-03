@@ -58,7 +58,6 @@ public class OrderTestHelper {
 
     public String createOrderRequest() throws Exception {
         OrderDto orderDto = OrderDto.builder()
-                .orderNumber(123456L)
                 .customerId("customerId")
                 .items(createOrderItems())
                 .shippingAddress(createShippingAddress())

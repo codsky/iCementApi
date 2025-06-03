@@ -80,7 +80,7 @@ public class BaseRepository <T extends BaseEntity> {
         return Optional.ofNullable(mongoTemplate.findOne(query, entity));
     }
 
-    protected Optional<List<T>> findWithCriteria(Criteria criteria) {
+    public Optional<List<T>> findWithCriteria(Criteria criteria) {
         Query query = new Query(criteria);
         return Optional.ofNullable(mongoTemplate.find(query, entity));
     }

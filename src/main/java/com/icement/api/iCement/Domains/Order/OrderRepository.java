@@ -12,7 +12,7 @@ import com.icement.api.iCement.Domains.Shared.Repositories.BaseRepository;
 @Repository
 public class OrderRepository extends BaseRepository<Order> {
     
-    OrderRepository() {
+    public OrderRepository() {
         super(Order.class, "orders");
     }
 

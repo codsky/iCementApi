@@ -29,6 +29,7 @@ public class OrderService {
         List<String> productNumbers = getProductNumbersFromOrderItems(order.getItems());
         List<Product> products = productRepository.findByProductNumbers(productNumbers)
             .orElseThrow(() -> new NotFoundException("Products with product numbers " + productNumbers + " not found"));
+        
         checkOrderItemsNonExistingProductNumbers(order, products);
     }
 

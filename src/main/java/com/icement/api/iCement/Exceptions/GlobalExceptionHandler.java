@@ -47,6 +47,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         error.put("error", ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
+    // Handle internal server error
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> handleInternalServerError(Exception ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("error", "An unexpected error occurred: " + ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
     
 }

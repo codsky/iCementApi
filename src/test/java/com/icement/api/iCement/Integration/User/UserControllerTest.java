@@ -1,5 +1,6 @@
 package com.icement.api.iCement.Integration.User;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -7,6 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -28,6 +31,9 @@ public class UserControllerTest extends BaseIntegrationTest {
     private UserAuthTestHelper userAuthTestHelper;
 
     private boolean isUserCollectionCleared = false;
+
+     @Autowired
+    protected MongoTemplate mongoTemplate;
 
     @BeforeAll
     public void init() {
@@ -76,4 +82,14 @@ public class UserControllerTest extends BaseIntegrationTest {
         mockMvc.perform(delete("/api/users/" + user.get().getId()).headers(userAuthTestHelper.getAuthorizationHeaders()))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    public void testDropAllUsers() throws Exception {
+        mongoTemplate.dropCollection(User.class);
+        Criteria criteria = Criteria.where("_id").ne(null);
+        Optional<List<User>> users = userRepository.findWithCriteria(criteria);
+        
+        assert users.isEmpty() : "User collection should be empty after drop";
+    }
+        
 }

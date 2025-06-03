@@ -10,7 +10,8 @@ import com.icement.api.iCement.Domains.Shared.Repositories.BaseRepository;
 
 @Repository
 public class ProductRepository extends BaseRepository<Product> {
-    ProductRepository() {
+
+    public ProductRepository() {
         super(Product.class, "products");
     }
 
