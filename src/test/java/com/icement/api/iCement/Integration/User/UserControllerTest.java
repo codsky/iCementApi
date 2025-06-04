@@ -87,7 +87,7 @@ public class UserControllerTest extends BaseIntegrationTest {
     public void testDropAllUsers() throws Exception {
         mongoTemplate.dropCollection(User.class);
         Criteria criteria = Criteria.where("_id").ne(null);
-        Optional<List<User>> users = userRepository.findWithCriteria(criteria);
+        List<User> users = userRepository.findWithCriteria(criteria);
         
         assert users.isEmpty() : "User collection should be empty after drop";
     }

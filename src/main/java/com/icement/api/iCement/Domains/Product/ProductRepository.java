@@ -33,7 +33,7 @@ public class ProductRepository extends BaseRepository<Product> {
         return findOneWithCriteria(criteria);
     }
 
-    public Optional<List<Product>> findByProductNumbers(List<String> productNumbers) {
+    public List<Product> findByProductNumbers(List<String> productNumbers) {
         Criteria criteria = Criteria.where("product_number").in(productNumbers).and("current").is(true)
                 .and("deleted_at").is(null);
 

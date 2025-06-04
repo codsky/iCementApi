@@ -68,7 +68,7 @@ public class OrderTestHelper {
     private ArrayList<OrderItemDto> createOrderItems() {
         ArrayList<OrderItemDto> items = new ArrayList<>();
         OrderItemDto item = OrderItemDto.builder()
-                .productNumber("productId")
+                .productNumber("productNumber123")
                 .productName("Cement")
                 .productVersion(1)
                 .quantity(2)
@@ -90,5 +90,4 @@ public class OrderTestHelper {
                 .digitalAddress("GA-123-4567")
                 .build();
     }
-
 }

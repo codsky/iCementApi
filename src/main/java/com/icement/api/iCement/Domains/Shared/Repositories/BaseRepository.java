@@ -75,13 +75,18 @@ public class BaseRepository <T extends BaseEntity> {
         return mongoTemplate.aggregate(aggregation, collectionName, entity).getMappedResults();
     }
 
-    protected Optional<T> findOneWithCriteria(Criteria criteria) {
+    public Optional<T> findOneWithCriteria(Criteria criteria) {
         Query query = new Query(criteria);
         return Optional.ofNullable(mongoTemplate.findOne(query, entity));
     }
 
-    public Optional<List<T>> findWithCriteria(Criteria criteria) {
-        Query query = new Query(criteria);
-        return Optional.ofNullable(mongoTemplate.find(query, entity));
+    public List<T> findWithCriteria(Criteria criteria) {
+        return mongoTemplate.aggregate(
+            Aggregation.newAggregation(
+                Aggregation.match(criteria)
+            ),
+            collectionName,
+            entity
+        ).getMappedResults();
     }
 }

@@ -27,9 +27,7 @@ public class OrderService {
 
     private void validateOrderItemsProducts(Order order) {
         List<String> productNumbers = getProductNumbersFromOrderItems(order.getItems());
-        List<Product> products = productRepository.findByProductNumbers(productNumbers)
-            .orElseThrow(() -> new NotFoundException("Products with product numbers " + productNumbers + " not found"));
-        
+        List<Product> products = productRepository.findByProductNumbers(productNumbers);        
         checkOrderItemsNonExistingProductNumbers(order, products);
     }
 
