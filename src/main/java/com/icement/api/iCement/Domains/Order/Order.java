@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.mongodb.core.mapping.FieldType;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.icement.api.iCement.Domains.Shared.Entities.Address;

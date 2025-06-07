@@ -18,7 +18,7 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collation = "products")
+@Document(collection = "products")
 @ToString
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public class Product extends BaseEntity {

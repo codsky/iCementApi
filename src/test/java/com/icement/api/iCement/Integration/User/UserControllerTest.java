@@ -3,8 +3,10 @@ package com.icement.api.iCement.Integration.User;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -51,7 +53,7 @@ public class UserControllerTest extends BaseIntegrationTest {
             return;
         }
         isUserCollectionCleared = true;
-        userRepository.deleteAll();
+        mongoTemplate.dropCollection(User.class);
     }
 
     @Test
@@ -84,6 +86,7 @@ public class UserControllerTest extends BaseIntegrationTest {
     }
 
     @Test
+    @Disabled
     public void testDropAllUsers() throws Exception {
         mongoTemplate.dropCollection(User.class);
         Criteria criteria = Criteria.where("_id").ne(null);

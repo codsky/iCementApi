@@ -4,10 +4,8 @@ import java.util.ArrayList;
 
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icement.api.iCement.Domains.Order.Dtos.OrderDto;
@@ -45,15 +43,12 @@ public class OrderTestHelper {
         orderRepository.deleteAll();
     }
 
-    public void createOrder() throws Exception {
+    public ResultActions createOrder() throws Exception {
     
-        this.mockMvc.perform(post("/api/orders/create")
+        return this.mockMvc.perform(post("/api/orders/create")
                 .headers(userAuthTestHelper.getAuthorizationHeaders())
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(createOrderRequest()))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.orderNumber").value(123456L))
-                .andDo(print());
+                .content(createOrderRequest()));
     }
 
     public String createOrderRequest() throws Exception {

@@ -52,7 +52,7 @@ public class OrderService {
             .orElse(null);
 
         if (productNumbersNotFound != null) {
-            throw new NotFoundException("Products with product numbers " + productNumbersNotFound + " not found");
+            throw new NotFoundException("Products with product numbers " + productNumbersNotFound + " not found!");
         }
     }
 
