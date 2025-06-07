@@ -14,7 +14,14 @@ public class ProductService {
     }
 
     public Product createProduct(Product product) {
+        checkCreatedProductExistance(product);
         return productRepository.save(product);
+    }
+
+    private void checkCreatedProductExistance(Product product) {
+        productRepository.findByProductNumber(product.getProductNumber()).ifPresent(existingProduct -> {
+            throw new IllegalArgumentException("Product with product number " + product.getProductNumber() + " already exists");
+        });
     }
 
     public Product updateProduct(Product product) {
