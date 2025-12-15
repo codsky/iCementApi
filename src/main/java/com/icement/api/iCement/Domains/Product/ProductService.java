@@ -19,7 +19,7 @@ public class ProductService {
     }
 
     private void checkCreatedProductExistance(Product product) {
-        productRepository.findByProductNumber(product.getProductNumber()).ifPresent(existingProduct -> {
+        productRepository.findByProductNumber(product.getProductNumber()).ifPresent(_ -> {
             throw new IllegalArgumentException("Product with product number " + product.getProductNumber() + " already exists");
         });
     }

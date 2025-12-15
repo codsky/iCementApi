@@ -3,7 +3,8 @@ package com.icement.api.iCement.Domains.Order;
 public enum OrderStatus {
     PENDING("Pending"),
     CONFIRMED("Confirmed"),
-    IN_PROGRESS("In Progress"),
+    IN_PRODUCTION("In Production"),
+    OUT_FOR_DELIVERY("Out for Delivery"),
     DELIVERED("Delivered"),
     CANCELLED("Cancelled");
 
