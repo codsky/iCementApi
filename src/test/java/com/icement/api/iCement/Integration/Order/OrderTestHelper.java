@@ -10,8 +10,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.icement.api.iCement.Domains.Order.Dtos.OrderDto;
 import com.icement.api.iCement.Domains.Order.Dtos.OrderItemDto;
+import com.icement.api.iCement.Domains.Base.Entities.Address;
 import com.icement.api.iCement.Domains.Order.OrderRepository;
-import com.icement.api.iCement.Domains.Shared.Entities.Address;
 import com.icement.api.iCement.Integration.User.UserAuthTestHelper;
 
 public class OrderTestHelper {

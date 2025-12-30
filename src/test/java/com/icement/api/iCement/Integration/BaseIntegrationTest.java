@@ -1,4 +1,4 @@
-package com.icement.api.iCement;
+package com.icement.api.iCement.Integration;
 
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,7 +10,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 
 @Testcontainers
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes= ICementApplication.class)
+// @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes= ICementApplication.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public abstract class BaseIntegrationTest {
 

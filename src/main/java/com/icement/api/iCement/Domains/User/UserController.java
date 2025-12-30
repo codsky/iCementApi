@@ -20,7 +20,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable String id) {
+    public User getUserById(@PathVariable Integer id) {
         return userService.getUserById(id);
     }
 
@@ -29,10 +29,10 @@ public class UserController {
         return userService.getAllUsers(filter);
     }
 
-    @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable String id, Principal principal) {
-        System.out.println("Authorized user: " + principal.getName());
-        userService.delete(id, principal.getName());
-        return "User deleted successfully";
-    }
+    // @DeleteMapping("/{id}")
+    // public String deleteUser(@PathVariable String id, Principal principal) {
+    //     System.out.println("Authorized user: " + principal.getName());
+    //     userService.delete(id, principal.getName());
+    //     return "User deleted successfully";
+    // }
 }

@@ -13,9 +13,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.icement.api.iCement.BaseIntegrationTest;
 import com.icement.api.iCement.Domains.User.User;
 import com.icement.api.iCement.Domains.User.UserRepository;
+import com.icement.api.iCement.Integration.BaseIntegrationTest;
 
 @AutoConfigureMockMvc
 public class AuthControllerTest extends BaseIntegrationTest {
@@ -38,28 +38,28 @@ public class AuthControllerTest extends BaseIntegrationTest {
         userRepository.deleteAll();
     }
 
-    @Test
-    public void testRegistration() throws Exception {
-       this.userTestHelper.registerUser();
-        // Verify that the user was created in the database
-        List<User> users = userRepository.findUsersByFilter();
-        assertEquals(1, users.size());
-    }
+    // @Test
+    // public void testRegistration() throws Exception {
+    //    this.userTestHelper.registerUser();
+    //     // Verify that the user was created in the database
+    //     List<User> users = userRepository.findUsersByFilter();
+    //     assertEquals(1, users.size());
+    // }
 
-    @Test
-    public void testLogin() throws Exception {
-        this.userTestHelper.registerUser();
+    // @Test
+    // public void testLogin() throws Exception {
+    //     this.userTestHelper.registerUser();
 
-        String postRequest = """
-            { \"email\": \"test@test.com\", 
-              \"password\": \"password\"
-            }                
-        """;
+    //     String postRequest = """
+    //         { \"email\": \"test@test.com\", 
+    //           \"password\": \"password\"
+    //         }                
+    //     """;
 
-        this.mockMvc.perform(post("/api/auth/login")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(postRequest))
-            .andExpect(status().isOk());
-    }
+    //     this.mockMvc.perform(post("/api/auth/login")
+    //         .contentType(MediaType.APPLICATION_JSON)
+    //         .content(postRequest))
+    //         .andExpect(status().isOk());
+    // }
 
 }

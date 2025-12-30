@@ -1,4 +1,4 @@
-package com.icement.api.iCement.Domains.Shared.Entities;
+package com.icement.api.iCement.Domains.Base.Entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

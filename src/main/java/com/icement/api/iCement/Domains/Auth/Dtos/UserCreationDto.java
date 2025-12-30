@@ -1,4 +1,4 @@
-package com.icement.api.iCement.Domains.User.Auth.Dtos;
+package com.icement.api.iCement.Domains.Auth.Dtos;
 
 
 import com.icement.api.iCement.Domains.User.User;

@@ -26,27 +26,27 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @PostMapping("/create")
-    public Order create(@RequestBody @Valid OrderDto orderDto) {
-        return orderService.createOrder(orderDto.toOrder());
-    }
+    // @PostMapping("/create")
+    // public Order create(@RequestBody @Valid OrderDto orderDto) {
+    //     return orderService.createOrder(orderDto.toOrder());
+    // }
 
-    @GetMapping("/{id}")
-    public Order getById(@PathVariable String id) {
-        return orderService.getOrderById(id);
-    }
+    // @GetMapping("/{id}")
+    // public Order getById(@PathVariable String id) {
+    //     return orderService.getOrderById(id);
+    // }
 
-    @GetMapping()
-    public List<Order> getAll(@ModelAttribute OrderListFilterDto filter) {
-        if (filter != null) {
-            return orderService.getOrdersByFilter(filter);
-        }
-        return orderService.getOrdersByFilter();
-    }
+    // @GetMapping()
+    // public List<Order> getAll(@ModelAttribute OrderListFilterDto filter) {
+    //     if (filter != null) {
+    //         return orderService.getOrdersByFilter(filter);
+    //     }
+    //     return orderService.getOrdersByFilter();
+    // }
 
-    @PutMapping("/{id}")
-    public Order cancel(@PathVariable String id) {
-        return orderService.cancelOrder(id);
-    }
+    // @PutMapping("/{id}")
+    // public Order cancel(@PathVariable String id) {
+    //     return orderService.cancelOrder(id);
+    // }
 
 }

@@ -2,10 +2,10 @@ package com.icement.api.iCement.Domains.Order.Dtos;
 
 import java.util.ArrayList;
 
+import com.icement.api.iCement.Domains.Base.Entities.Address;
 import com.icement.api.iCement.Domains.Order.Order;
 import com.icement.api.iCement.Domains.Order.OrderItem;
 import com.icement.api.iCement.Domains.Order.OrderStatus;
-import com.icement.api.iCement.Domains.Shared.Entities.Address;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;

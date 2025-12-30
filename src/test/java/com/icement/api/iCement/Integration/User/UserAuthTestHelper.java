@@ -52,7 +52,8 @@ public class UserAuthTestHelper {
     }
 
     private boolean defaultUserExists() {
-        return userRepository.findByEmail(defaultUserEmail).isPresent();
+        //TODO: replace findAllById with findByEmail later
+        return userRepository.findByUsername(defaultUserEmail).isPresent();
     }
 
     public String loginUserAndReturnToken() throws Exception {

@@ -15,13 +15,13 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    User getUserById(String id) throws NotFoundException {
+    User getUserById(Integer id) throws NotFoundException {
         return userRepository.findById(id)
         .orElseThrow(() -> new NotFoundException("User with id " + id + " not found"));
     }
 
     List<User> getAllUsers(UserListFilterDto filter) {
-        return userRepository.findUsersByFilter(setFilterIfNoneIsGiven(filter));
+        return userRepository.findAll();
     }
 
     private UserListFilterDto setFilterIfNoneIsGiven(UserListFilterDto filter) {
@@ -31,9 +31,9 @@ public class UserService {
         return filter;
     }
 
-    void delete(String id, String deletedByUserId) throws NotFoundException {
+    void delete(Integer id, Integer deletedByUserId) throws NotFoundException {
         User user = this.getUserById(id);
-        userRepository.delete(user, deletedByUserId);
+        userRepository.deleteById(deletedByUserId);
     }
 
 }

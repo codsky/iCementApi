@@ -12,67 +12,67 @@ import com.icement.api.iCement.Exceptions.NotFoundException;
 @Service
 public class OrderService {
 
-    private final OrderRepository orderRepository;
-    private final ProductRepository productRepository;
+    // private final OrderRepository orderRepository;
+    // private final ProductRepository productRepository;
 
-    public OrderService(OrderRepository orderRepository, ProductRepository productRepository) {
-        this.orderRepository = orderRepository;
-        this.productRepository = productRepository;
-    }
+    // public OrderService(OrderRepository orderRepository, ProductRepository productRepository) {
+    //     this.orderRepository = orderRepository;
+    //     this.productRepository = productRepository;
+    // }
 
-    public Order createOrder(Order order) {
-        validateOrderItemsProducts(order);
-        return orderRepository.save(order);
-    }
+    // public Order createOrder(Order order) {
+    //     validateOrderItemsProducts(order);
+    //     return orderRepository.save(order);
+    // }
 
-    private void validateOrderItemsProducts(Order order) {
-        List<String> productNumbers = getProductNumbersFromOrderItems(order.getItems());
-        List<Product> products = productRepository.findByProductNumbers(productNumbers);        
-        checkOrderItemsNonExistingProductNumbers(order, products);
-    }
+    // private void validateOrderItemsProducts(Order order) {
+    //     List<String> productNumbers = getProductNumbersFromOrderItems(order.getItems());
+    //     List<Product> products = productRepository.findByProductNumbers(productNumbers);        
+    //     checkOrderItemsNonExistingProductNumbers(order, products);
+    // }
 
-    private List<String> getProductNumbersFromOrderItems(List<OrderItem> orderItems) {
-        List<String> productNumbers = orderItems.stream()
-            .map(OrderItem::getProductNumber)
-            .toList();
+    // private List<String> getProductNumbersFromOrderItems(List<OrderItem> orderItems) {
+    //     List<String> productNumbers = orderItems.stream()
+    //         .map(OrderItem::getProductNumber)
+    //         .toList();
 
-        if (productNumbers.isEmpty()) {
-            throw new NotFoundException("No product numbers found in order items");
-        }
+    //     if (productNumbers.isEmpty()) {
+    //         throw new NotFoundException("No product numbers found in order items");
+    //     }
 
-        return productNumbers;
-    }
+    //     return productNumbers;
+    // }
 
-    private void checkOrderItemsNonExistingProductNumbers(Order order, List<Product> products) {
-        String productNumbersNotFound = order.getItems().stream()
-            .filter(item -> products.stream().noneMatch(product -> product.getProductNumber().equals(item.getProductNumber())))
-            .map(OrderItem::getProductNumber)
-            .distinct()
-            .reduce((a, b) -> a + ", " + b)
-            .orElse(null);
+    // private void checkOrderItemsNonExistingProductNumbers(Order order, List<Product> products) {
+    //     String productNumbersNotFound = order.getItems().stream()
+    //         .filter(item -> products.stream().noneMatch(product -> product.getProductNumber().equals(item.getProductNumber())))
+    //         .map(OrderItem::getProductNumber)
+    //         .distinct()
+    //         .reduce((a, b) -> a + ", " + b)
+    //         .orElse(null);
 
-        if (productNumbersNotFound != null) {
-            throw new NotFoundException("Products with product numbers " + productNumbersNotFound + " not found!");
-        }
-    }
+    //     if (productNumbersNotFound != null) {
+    //         throw new NotFoundException("Products with product numbers " + productNumbersNotFound + " not found!");
+    //     }
+    // }
 
-    public Order getOrderById(String id) {
-        return orderRepository.findById(id)
-            .orElseThrow(() -> new NotFoundException("Order with id " + id + " not found"));
-    }
+    // public Order getOrderById(String id) {
+    //     return orderRepository.findById(id)
+    //         .orElseThrow(() -> new NotFoundException("Order with id " + id + " not found"));
+    // }
 
-    public List<Order> getOrdersByFilter() {
-        OrderListFilterDto filter = new OrderListFilterDto();
-        return orderRepository.findOrdersByFilter(filter);
-    }
+    // public List<Order> getOrdersByFilter() {
+    //     OrderListFilterDto filter = new OrderListFilterDto();
+    //     return orderRepository.findOrdersByFilter(filter);
+    // }
     
-    public List<Order> getOrdersByFilter(OrderListFilterDto filter) {
-        return orderRepository.findOrdersByFilter(filter);
-    }
+    // public List<Order> getOrdersByFilter(OrderListFilterDto filter) {
+    //     return orderRepository.findOrdersByFilter(filter);
+    // }
 
-    public Order cancelOrder(String id) {
-        Order order = this.getOrderById(id);
-        order.setStatus(OrderStatus.CANCELLED);
-        return orderRepository.save(order);
-    }
+    // public Order cancelOrder(String id) {
+    //     Order order = this.getOrderById(id);
+    //     order.setStatus(OrderStatus.CANCELLED);
+    //     return orderRepository.save(order);
+    // }
 }

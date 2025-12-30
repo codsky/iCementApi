@@ -17,26 +17,26 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping()
-    public Iterable<Product> getAll() {
-        return productService.getAllProducts();
-    }
+    // @GetMapping()
+    // public Iterable<Product> getAll() {
+    //     return productService.getAllProducts();
+    // }
 
-    @PostMapping("/create")
-    public Product create(Product product) {
-        return productService.createProduct(product);
-    }
+    // @PostMapping("/create")
+    // public Product create(Product product) {
+    //     return productService.createProduct(product);
+    // }
 
-    @PostMapping("/update")
-    public Product update(Product product) {
-        return productService.updateProduct(product);
-    }
+    // @PostMapping("/update")
+    // public Product update(Product product) {
+    //     return productService.updateProduct(product);
+    // }
 
-    @GetMapping("/{productNumber}")
-    public Product getByProductNumber(@PathVariable String productNumber, @Param("version") Integer version) {
-        if (version != null) {
-            return productService.getProductByProductNumberAndVersion(productNumber, version);
-        }
-        return productService.getLatestProductByProductNumber(productNumber);
-    }
+    // @GetMapping("/{productNumber}")
+    // public Product getByProductNumber(@PathVariable String productNumber, @Param("version") Integer version) {
+    //     if (version != null) {
+    //         return productService.getProductByProductNumberAndVersion(productNumber, version);
+    //     }
+    //     return productService.getLatestProductByProductNumber(productNumber);
+    // }
 }
