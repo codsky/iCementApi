@@ -16,6 +16,7 @@ import com.icement.api.iCement.Domains.User.Enums.UserRole;
 import com.icement.api.iCement.Domains.User.Enums.UserStatus;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -26,8 +27,8 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Builder
+@Data
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity implements UserDetails {

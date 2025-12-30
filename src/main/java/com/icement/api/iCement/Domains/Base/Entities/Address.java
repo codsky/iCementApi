@@ -1,5 +1,6 @@
 package com.icement.api.iCement.Domains.Base.Entities;
 
+import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +12,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(callSuper = true)
+@Embeddable
 public class Address {
     private String name;
     private String street;

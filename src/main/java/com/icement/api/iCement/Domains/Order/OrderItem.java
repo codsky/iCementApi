@@ -1,6 +1,7 @@
 package com.icement.api.iCement.Domains.Order;
 
 
+import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Embeddable
 public class OrderItem {
 
     private String productName;

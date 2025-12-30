@@ -39,7 +39,7 @@ public class AuthorizationConfiguration {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/api/auth/**", "/error")
+                        .requestMatchers("/api/auth/**", "/error", "/api/health/**")
                         .permitAll()
                         .anyRequest()
                         .authenticated())

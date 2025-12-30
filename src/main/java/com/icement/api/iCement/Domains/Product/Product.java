@@ -3,6 +3,8 @@ package com.icement.api.iCement.Domains.Product;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.icement.api.iCement.Domains.Base.Entities.BaseEntity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +19,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @JsonInclude(JsonInclude.Include.ALWAYS)
+@Entity
+@Table(name = "products")
 public class Product extends BaseEntity {
 
     private String name;
