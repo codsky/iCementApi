@@ -8,11 +8,11 @@ import org.springframework.test.web.servlet.ResultActions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.icement.api.iCement.Domains.Order.Dtos.OrderDto;
-import com.icement.api.iCement.Domains.Order.Dtos.OrderItemDto;
-import com.icement.api.iCement.Domains.Base.Entities.Address;
-import com.icement.api.iCement.Domains.Order.OrderRepository;
 import com.icement.api.iCement.Integration.User.UserAuthTestHelper;
+import com.icement.api.iCement.common.entities.Address;
+import com.icement.api.iCement.order.dto.OrderDto;
+import com.icement.api.iCement.order.dto.OrderItemDto;
+import com.icement.api.iCement.order.repository.OrderRepository;
 
 public class OrderTestHelper {
 

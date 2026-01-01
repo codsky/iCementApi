@@ -11,11 +11,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.icement.api.iCement.Domains.Order.OrderRepository;
-import com.icement.api.iCement.Domains.Product.ProductRepository;
-import com.icement.api.iCement.Domains.User.UserRepository;
 import com.icement.api.iCement.Integration.BaseIntegrationTest;
 import com.icement.api.iCement.Integration.User.UserAuthTestHelper;
+import com.icement.api.iCement.order.repository.OrderRepository;
+import com.icement.api.iCement.product.repository.ProductRepository;
+import com.icement.api.iCement.user.repository.UserRepository;
 
 @AutoConfigureMockMvc
 public class OrderControllerTest extends BaseIntegrationTest {

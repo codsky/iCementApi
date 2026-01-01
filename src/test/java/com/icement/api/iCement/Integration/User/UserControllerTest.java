@@ -16,9 +16,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.icement.api.iCement.Domains.User.User;
-import com.icement.api.iCement.Domains.User.UserRepository;
 import com.icement.api.iCement.Integration.BaseIntegrationTest;
+import com.icement.api.iCement.user.User;
+import com.icement.api.iCement.user.repository.UserRepository;
 
 @AutoConfigureMockMvc
 public class UserControllerTest extends BaseIntegrationTest {

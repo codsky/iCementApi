@@ -1,7 +1,7 @@
 package com.icement.api.iCement.Integration.Order;
 
-import com.icement.api.iCement.Domains.Product.Product;
-import com.icement.api.iCement.Domains.Product.ProductRepository;
+import com.icement.api.iCement.product.Product;
+import com.icement.api.iCement.product.repository.ProductRepository;
 
 public class ProductTestHelper {
 
