@@ -25,10 +25,11 @@ import lombok.Setter;
 @Table(name = "orders")
 public class Order extends BaseEntity {
 
+    private static final BigDecimal TAX_RATE = new BigDecimal("0.19");
+
     @Setter
     private String orderNumber;
 
-    @Setter
     private String customerId;
 
     private OrderStatus status;
@@ -49,7 +50,6 @@ public class Order extends BaseEntity {
     private List<OrderItem> items = new ArrayList<>();
 
     @Embedded
-    @Setter
     private Address shippingAddress;
 
     public static Order create(String customerId, List<OrderItem> items, Address shippingAddress) {
@@ -97,16 +97,14 @@ public class Order extends BaseEntity {
         BigDecimal discountValue = this.discount != null ? this.discount : BigDecimal.ZERO;
         BigDecimal shippingValue = this.shippingPrice != null ? this.shippingPrice : BigDecimal.ZERO;
         
-        // Assuming a fixed tax rate
-        BigDecimal taxRate = new BigDecimal("0.19");
-        this.taxAmount = this.totalNetPrice.multiply(taxRate);
+        
+        this.taxAmount = this.totalNetPrice.multiply(TAX_RATE);
         
         this.totalGrossPrice = this.totalNetPrice.add(this.taxAmount).add(shippingValue).subtract(discountValue);
     }
 
     public void updateStatus(OrderStatus newStatus) {
         switch (newStatus) {
-            case PENDING -> setStatusToPending();
             case CONFIRMED -> setStatusToConfirmed();
             case IN_PRODUCTION -> setStatusToInProduction();
             case ASSIGNED_TO_DRIVER -> setStatusToAssignedToDriver();
@@ -118,14 +116,6 @@ public class Order extends BaseEntity {
         }
     }
 
-
-    private void setStatusToPending() {
-        if (this.status == null) {
-            this.status = OrderStatus.PENDING;
-            return;
-        }
-        throw new IllegalStateException("Order status can be set to PENDING only if it is null.");
-    }
 
     private void setStatusToConfirmed() {
         if (this.status == OrderStatus.PENDING || this.status == OrderStatus.ON_HOLD) {
