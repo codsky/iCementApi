@@ -1,5 +1,6 @@
 package com.icement.api.iCement.order;
 
+import java.math.BigDecimal;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
@@ -20,23 +21,23 @@ public class OrderItem {
 
     private Integer productVersion;
 
-    private Double price;
+    private BigDecimal price;
 
     private Integer quantity;
     
-    private Double totalPrice;
+    private BigDecimal totalPrice;
 
-    public Double calculateTotalPrice() {
-        return this.price * this.quantity;
+    public BigDecimal calculateTotalPrice() {
+        return this.price.multiply(BigDecimal.valueOf(this.quantity));
     }
 
     public void updateQuantity(int newQuantity) {
         this.quantity = newQuantity;
         this.totalPrice = calculateTotalPrice();
     }
-    public void updatePrice(double newPrice) {
+
+    public void updatePrice(BigDecimal newPrice) {
         this.price = newPrice;
         this.totalPrice = calculateTotalPrice();
     }
-
 }

@@ -1,8 +1,9 @@
 package com.icement.api.iCement.order;
 
-import java.util.List;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.icement.api.iCement.common.entities.Address;
@@ -13,53 +14,95 @@ import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @EqualsAndHashCode(callSuper = true)
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter
 @JsonInclude(JsonInclude.Include.ALWAYS)
 @Table(name = "orders")
 public class Order extends BaseEntity {
 
-    @Getter
     @Setter
     private String orderNumber;
 
-    @Getter
     @Setter
     private String customerId;
 
     private OrderStatus status;
 
-    @Getter
-    private Double totalNetPrice;
+    private BigDecimal totalNetPrice = BigDecimal.ZERO;
 
-    @Getter
-    private Double totalGrossPrice;
+    private BigDecimal totalGrossPrice = BigDecimal.ZERO;
 
-    @Getter
     @Setter
-    private Double discount;
+    private BigDecimal discount = BigDecimal.ZERO;
 
-    @Getter
-    private Double taxAmount;
+    private BigDecimal taxAmount = BigDecimal.ZERO;
 
-    @Getter
     @Setter
-    private Double shippingPrice;
+    private BigDecimal shippingPrice = BigDecimal.ZERO;
 
     @ElementCollection
-    @Getter
     private List<OrderItem> items = new ArrayList<>();
 
     @Embedded
+    @Setter
     private Address shippingAddress;
+
+    public static Order create(String customerId, List<OrderItem> items, Address shippingAddress) {
+        validateCreation(customerId, items, shippingAddress);
+        
+        Order order = new Order();
+        order.customerId = customerId;
+        order.items = new ArrayList<>(items);
+        order.shippingAddress = shippingAddress;
+        order.recalculateTotals();
+        order.status = OrderStatus.PENDING;
+        return order;
+    }
+
+    private static void validateCreation(String customerId, List<OrderItem> items, Address shippingAddress) {
+        if (items == null || items.isEmpty()) {
+            throw new IllegalArgumentException("Order must have at least one item.");
+        }
+        if (shippingAddress == null) {
+            throw new IllegalArgumentException("Order must have a shipping address.");
+        }
+        if (customerId == null || customerId.isBlank()) {
+            throw new IllegalArgumentException("Order must have a customer ID.");
+        }
+    }
+
+    public void addItem(OrderItem item) {
+        if (item == null) {
+            throw new IllegalArgumentException("Order item cannot be null.");
+        }
+        this.items.add(item);
+        recalculateTotals();
+    }
+
+    public void removeItem(OrderItem item) {
+        this.items.remove(item);
+        recalculateTotals();
+    }
+
+    public void recalculateTotals() {
+        this.totalNetPrice = this.items.stream()
+                .map(item -> item.getTotalPrice() != null ? item.getTotalPrice() : item.calculateTotalPrice())
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        
+        BigDecimal discountValue = this.discount != null ? this.discount : BigDecimal.ZERO;
+        BigDecimal shippingValue = this.shippingPrice != null ? this.shippingPrice : BigDecimal.ZERO;
+        
+        // Assuming a fixed tax rate
+        BigDecimal taxRate = new BigDecimal("0.19");
+        this.taxAmount = this.totalNetPrice.multiply(taxRate);
+        
+        this.totalGrossPrice = this.totalNetPrice.add(this.taxAmount).add(shippingValue).subtract(discountValue);
+    }
 
     public void updateStatus(OrderStatus newStatus) {
         switch (newStatus) {

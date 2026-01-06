@@ -31,6 +31,10 @@ iCementApi is a Spring Boot 3.4 REST API (Java 21) for cement ordering and deliv
 git add -A && git commit -m "Your commit message" && git push
 ```
 
+## Rules
+
+- Do not add co-author lines to commit messages.
+
 ## Architecture
 
 ### Package Structure (`com.icement.api.iCement`)
