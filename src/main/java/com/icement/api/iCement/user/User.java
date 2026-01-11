@@ -67,4 +67,24 @@ public class User extends BaseEntity implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public boolean isActive() {
+        return this.status == UserStatus.ACTIVE;
+    }
+
+    public boolean isAgent() {
+        return this.role == UserRole.AGENT;
+    }
+
+    public boolean isDriver() {
+        return this.role == UserRole.DRIVER;
+    }
+
+    public boolean isAdmin() {
+        return this.role == UserRole.ADMIN;
+    }
+
+    public boolean isRetailer() {
+        return this.role == UserRole.RETAILER;
+    }
 }

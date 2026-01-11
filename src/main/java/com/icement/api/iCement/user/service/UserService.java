@@ -14,16 +14,16 @@ public class UserService {
 
     UserRepository userRepository;
 
-    UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    User getUserById(Integer id) throws NotFoundException {
+    public User getUserById(Integer id) throws NotFoundException {
         return userRepository.findById(id)
         .orElseThrow(() -> new NotFoundException("User with id " + id + " not found"));
     }
 
-    List<User> getAllUsers(UserListFilterDto filter) {
+    public List<User> getAllUsers(UserListFilterDto filter) {
         return userRepository.findAll();
     }
 

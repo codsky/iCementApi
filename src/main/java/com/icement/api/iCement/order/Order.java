@@ -103,21 +103,7 @@ public class Order extends BaseEntity {
         this.totalGrossPrice = this.totalNetPrice.add(this.taxAmount).add(shippingValue).subtract(discountValue);
     }
 
-    public void updateStatus(OrderStatus newStatus) {
-        switch (newStatus) {
-            case CONFIRMED -> setStatusToConfirmed();
-            case IN_PRODUCTION -> setStatusToInProduction();
-            case ASSIGNED_TO_DRIVER -> setStatusToAssignedToDriver();
-            case OUT_FOR_DELIVERY -> setStatusToOutForDelivery();
-            case DELIVERED -> setStatusToDelivered();
-            case CANCELLED -> setStatusToCancelled();
-            case ON_HOLD -> setStatusToOnHold();
-            default -> throw new IllegalArgumentException("Invalid order status: " + newStatus);
-        }
-    }
-
-
-    private void setStatusToConfirmed() {
+    public void confirm() {
         if (this.status == OrderStatus.PENDING || this.status == OrderStatus.ON_HOLD) {
             this.status = OrderStatus.CONFIRMED;
             return;
@@ -125,7 +111,7 @@ public class Order extends BaseEntity {
         throw new IllegalStateException("Order status can be changed to CONFIRMED only from PENDING or ON_HOLD states.");
     }
 
-    private void setStatusToInProduction() {
+    public void startProduction() {
         if (Arrays.asList(OrderStatus.PENDING, OrderStatus.CONFIRMED, OrderStatus.ON_HOLD).contains(this.status)) {
             this.status = OrderStatus.IN_PRODUCTION;
             return;
@@ -134,7 +120,7 @@ public class Order extends BaseEntity {
         
     }
 
-    private void setStatusToAssignedToDriver() {
+    public void assignToDriver() {
         if (this.status == OrderStatus.IN_PRODUCTION || this.status == OrderStatus.ON_HOLD) {
             this.status = OrderStatus.ASSIGNED_TO_DRIVER;
             return;
@@ -142,7 +128,7 @@ public class Order extends BaseEntity {
         throw new IllegalStateException("Order status can be changed to ASSIGNED_TO_DRIVER only from IN_PRODUCTION or ON_HOLD state.");
     }
 
-    private void setStatusToOutForDelivery() {
+    public void dispatch() {
         if (this.status == OrderStatus.ASSIGNED_TO_DRIVER || this.status == OrderStatus.ON_HOLD) {
             this.status = OrderStatus.OUT_FOR_DELIVERY;
             return;
@@ -150,7 +136,7 @@ public class Order extends BaseEntity {
         throw new IllegalStateException("Order status can be changed to OUT_FOR_DELIVERY only from IN_PRODUCTION or ON_HOLD state.");
     }
 
-    private void setStatusToDelivered() {
+    public void deliver() {
         if (this.status == OrderStatus.OUT_FOR_DELIVERY) {
             this.status = OrderStatus.DELIVERED;
             return;
@@ -158,7 +144,7 @@ public class Order extends BaseEntity {
         throw new IllegalStateException("Order status can be changed to DELIVERED only from OUT_FOR_DELIVERY state.");
     }
 
-    private void setStatusToCancelled() {
+    public void cancel() {
         if (this.status != OrderStatus.DELIVERED) {
             this.status = OrderStatus.CANCELLED;
             return;
@@ -166,7 +152,7 @@ public class Order extends BaseEntity {
         throw new IllegalStateException("Order status cannot be changed to CANCELLED from DELIVERED state.");
     }
 
-    private void setStatusToOnHold() {
+    public void hold() {
         if (this.status != OrderStatus.DELIVERED && this.status != OrderStatus.CANCELLED) {
             this.status = OrderStatus.ON_HOLD;
             return;

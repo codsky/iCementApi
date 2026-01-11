@@ -9,4 +9,5 @@ import com.icement.api.iCement.order.Order;
 @Repository
 public interface  OrderRepository extends JpaRepository<Order, Integer> {
 
+    public Order findByOrderNumber(String orderNumber);
 }
