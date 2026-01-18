@@ -1,9 +1,7 @@
 package com.icement.api.iCement.user.controller;
 
-import java.security.Principal;
 import java.util.List;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;

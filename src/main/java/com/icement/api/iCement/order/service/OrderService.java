@@ -2,10 +2,10 @@ package com.icement.api.iCement.order.service;
 
 import org.springframework.stereotype.Service;
 
+import com.icement.api.iCement.common.exception.AccessDeniedException;
 import com.icement.api.iCement.order.Order;
 import com.icement.api.iCement.order.repository.OrderRepository;
 import com.icement.api.iCement.user.User;
-import com.icement.api.iCement.common.exception.AccessDeniedException;
 
 @Service
 public class OrderService {
@@ -98,15 +98,14 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    public Order assignToDriver(String orderId, User user) {
+    public Order assignToDriver(String orderId, Integer driverId, User user) {
 
         if (!user.isAgent()) {
             throw new AccessDeniedException("Only agents can assign orders to drivers");
         }
 
         Order order = getOrderByOrderNumber(orderId);
-        // TODO: Update order with driver user id
-        order.assignToDriver();
+        order.assignToDriver(driverId);
         return orderRepository.save(order);
     }
 

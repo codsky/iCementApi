@@ -30,7 +30,13 @@ public class Order extends BaseEntity {
     @Setter
     private String orderNumber;
 
-    private String customerId;
+    private Integer retailerId;
+
+    @Setter
+    @Getter
+    private Integer driverId;
+
+    private Integer agentId;
 
     private OrderStatus status;
 
@@ -52,11 +58,11 @@ public class Order extends BaseEntity {
     @Embedded
     private Address shippingAddress;
 
-    public static Order create(String customerId, List<OrderItem> items, Address shippingAddress) {
-        validateCreation(customerId, items, shippingAddress);
+    public static Order create(Integer retailerId, List<OrderItem> items, Address shippingAddress) {
+        validateCreation(retailerId, items, shippingAddress);
         
         Order order = new Order();
-        order.customerId = customerId;
+        order.retailerId = retailerId;
         order.items = new ArrayList<>(items);
         order.shippingAddress = shippingAddress;
         order.recalculateTotals();
@@ -64,14 +70,14 @@ public class Order extends BaseEntity {
         return order;
     }
 
-    private static void validateCreation(String customerId, List<OrderItem> items, Address shippingAddress) {
+    private static void validateCreation(Integer retailerId, List<OrderItem> items, Address shippingAddress) {
         if (items == null || items.isEmpty()) {
             throw new IllegalArgumentException("Order must have at least one item.");
         }
         if (shippingAddress == null) {
             throw new IllegalArgumentException("Order must have a shipping address.");
         }
-        if (customerId == null || customerId.isBlank()) {
+        if (retailerId == null) {
             throw new IllegalArgumentException("Order must have a customer ID.");
         }
     }
@@ -120,9 +126,10 @@ public class Order extends BaseEntity {
         
     }
 
-    public void assignToDriver() {
+    public void assignToDriver(Integer driverId) {
         if (this.status == OrderStatus.IN_PRODUCTION || this.status == OrderStatus.ON_HOLD) {
             this.status = OrderStatus.ASSIGNED_TO_DRIVER;
+            this.driverId = driverId;
             return;
         }
         throw new IllegalStateException("Order status can be changed to ASSIGNED_TO_DRIVER only from IN_PRODUCTION or ON_HOLD state.");

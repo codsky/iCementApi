@@ -24,12 +24,26 @@ iCementApi is a RESTful API service for handling ordering and delivery of cement
 Order state transitions are controlled and validated. Some transitions allow regression under defined conditions (e.g., ON_HOLD), while others are terminal (e.g., DELIVERED, CANCELLED).An order can go through various states. Not all states must be travered sequentially. The states includes:
 
 * PENDING
+* CONFIRMED
 * IN_PRODUCTION
 * ASSIGNED_TO_DRIVER
 * OUT_FOR_DELIVERY
 * DELIVERED
 * CANCELLED
 * ON_HOLD
+
+# Role-Based Authorization for Order Actions
+
+| Action | AGENT | RETAILER | DRIVER |
+|--------|-------|----------|--------|
+| Create Order | - | ✓ | - |
+| Confirm | ✓ | - | - |
+| Start Production | ✓ | - | - |
+| Assign to Driver | ✓ | - | - |
+| Dispatch | ✓ | - | ✓ |
+| Deliver | - | - | ✓ |
+| Cancel | ✓ | ✓ | - |
+| Hold | ✓ | - | - |
 
 # Technology Stack
 * Java 21 Spring Boot with Maven
